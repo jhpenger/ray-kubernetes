@@ -1,0 +1,1 @@
+docker build . -t gcr.io/test-218319/peng00/kubernetes
