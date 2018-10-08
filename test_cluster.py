@@ -7,8 +7,7 @@ import ray
 import time
 import sys
 
-ray.init("10.20.0.8:6379")
-#ray.init(num_cpus=4, ignore_reinit_error=True)
+ray.init("10.20.0.102:6379")
 
 @ray.remote
 class Foo(object):

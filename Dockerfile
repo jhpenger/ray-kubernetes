@@ -25,7 +25,8 @@ RUN apt-get update \
     && pip install opencv-python \
     && pip install bokeh \
     && pip install ipywidgets==6.0.0 \
-    && pip install jupyter
+    && pip install jupyter \
+    && pip install lz4
 
 #COPY start_ray.py /ray/scripts/start_ray.py
 
