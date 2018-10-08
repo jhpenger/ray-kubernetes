@@ -24,7 +24,7 @@ metadata:
 spec:
   containers:
   - name: ray-head
-    image: gcr.io/test-218319/peng00/kubernetes
+    image: gcr.io/tutorial-218804/tutorial
     env:
     - name: MY_POD_IP
       valueFrom:

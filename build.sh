@@ -1,1 +1,1 @@
-docker build . -t gcr.io/test-218319/peng00/kubernetes
+docker build . -t gcr.io/tutorial-218804/tutorial

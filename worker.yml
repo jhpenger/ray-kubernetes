@@ -6,7 +6,7 @@ metadata:
   labels:
     app: ray-worker
 spec:
-  replicas: 10
+  replicas: 50
   template:
     metadata:
       labels:
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: ray-worker
-        image: gcr.io/test-218319/peng00/kubernetes
+        image: gcr.io/tutorial-218804/tutorial
         ports:
         - containerPort: 12345
         env:
