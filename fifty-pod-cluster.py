@@ -5,8 +5,9 @@ from __future__ import print_function
 import numpy as np
 import ray
 import time
+import sys
 
-ray.init("10.20.0.51:6379")
+ray.init("10.20.0.8:6379")
 #ray.init(num_cpus=4, ignore_reinit_error=True)
 
 @ray.remote
@@ -22,7 +23,11 @@ class Foo(object):
         self.counter += 1
         return self.counter
 
-Foos = [Foo.remote() for _ in range(20)]
+try:
+    num_of_remote_functions = int(sys.argv[1])
+except:
+    num_of_remote_functions = 95
+Foos = [Foo.remote() for _ in range(num_of_remote_functions)]
 
 
 
