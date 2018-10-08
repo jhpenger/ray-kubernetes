@@ -14,7 +14,7 @@ RUN apt-get update \
     && apt-get -y install flex \
     && apt-get -y install bison \
     && apt-get install -y nano \
-    && apt install python-opencv \
+    && apt install -y python-opencv \
     && pip install cython \
     && pip install pyarrow \
     && apt-get install -y pkg-config \
