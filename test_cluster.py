@@ -7,7 +7,7 @@ import ray
 import time
 import sys
 
-ray.init("10.20.0.102:6379")
+ray.init("10.20.0.138:6379")
 
 @ray.remote
 class Foo(object):
@@ -25,7 +25,7 @@ class Foo(object):
 try:
     num_of_remote_functions = int(sys.argv[1])
 except:
-    num_of_remote_functions = 95
+    num_of_remote_functions = 68*2
 Foos = [Foo.remote() for _ in range(num_of_remote_functions)]
 
 
@@ -52,8 +52,7 @@ results = ray.get(results)
 end_time = time.time()
 duration = end_time - start_time
 
-print(results)
-print(duration)
+
 
 #assert results == [1, 1, 2, 2, 3, 3, 4, 4, 5, 5]
 
@@ -62,4 +61,6 @@ print(duration)
 #assert duration > 2.5, ('The experiments ran in {} seconds. This is too '
 #                        'fast.'.format(duration))
 
+print(results)
 print('Success! The example took {} seconds.'.format(duration))
+print('Num of remote functions = %d' %num_of_remote_functions)
