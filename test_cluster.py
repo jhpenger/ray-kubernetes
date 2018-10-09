@@ -7,7 +7,12 @@ import ray
 import time
 import sys
 
-ray.init("10.20.0.138:6379")
+if 3 < len(sys.argv) < 2:
+    print("Usage: python test_cluster.py <redis-address> <#-of-remote-funcs>")
+    print("<#-of-remote-funcs> OPTIONAL, default = 136")
+    exit()
+
+ray.init(sys.argv[1])
 
 @ray.remote
 class Foo(object):
@@ -23,7 +28,7 @@ class Foo(object):
         return self.counter
 
 try:
-    num_of_remote_functions = int(sys.argv[1])
+    num_of_remote_functions = int(sys.argv[3])
 except:
     num_of_remote_functions = 68*2
 Foos = [Foo.remote() for _ in range(num_of_remote_functions)]

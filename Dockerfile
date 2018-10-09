@@ -5,6 +5,7 @@ RUN apt-get update \
     && apt-get install -y python-pip
 RUN pip install --upgrade pip
 RUN git clone https://github.com/robertnishihara/ray.git
+RUN git clone https://github.com/jhpenger/ray-kubernetes.git
 RUN pip install numpy
 #RUN cd /ray \
  #   && git checkout storeport
@@ -14,7 +15,9 @@ RUN apt-get update \
     && apt-get -y install flex \
     && apt-get -y install bison \
     && apt-get install -y nano \
+    && apt-get install -y openssh-server \
     && apt install -y python-opencv \
+    && apt install pssh \
     && pip install cython \
     && pip install pyarrow \
     && apt-get install -y pkg-config \
@@ -29,7 +32,7 @@ RUN apt-get update \
     && pip install lz4
 
 #COPY start_ray.py /ray/scripts/start_ray.py
-
+#COPY . ray-kubernetes-repo
 
 RUN cd /ray \
     && ./build.sh \
