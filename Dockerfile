@@ -32,7 +32,8 @@ RUN apt-get update \
     && pip install lz4
 
 
-RUN ssh-keygen -f /root/.ssh/id_rsa -P ""
+RUN ssh-keygen -f /root/.ssh/id_rsa -P "" \
+    && echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
 
 #COPY start_ray.py /ray/scripts/start_ray.py
 #COPY . ray-kubernetes-repo
