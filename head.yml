@@ -37,5 +37,5 @@ spec:
     args:
       - "ray start --head --redis-port 6379 --object-manager-port 12345 --node-ip-address $MY_POD_IP &&
         echo id_rsa.pub is -;
-        more ~/.ssh/id_rsa.pub;
+        more ~/.ssh/id_rsa.pub
         && while true; do sleep 30; done;"
