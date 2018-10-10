@@ -6,7 +6,7 @@ metadata:
   labels:
     app: ray-worker
 spec:
-  replicas: 68
+  replicas: 67
   template:
     metadata:
       labels:
@@ -25,10 +25,14 @@ spec:
         command: [ "/bin/bash", "-c", "--" ]
         args:
           - "ray start --node-ip-address $MY_POD_IP --redis-address $(python -c 'import socket;import sys; sys.stdout.write(socket.gethostbyname(\"ray-head.default.svc.cluster.local\"));sys.stdout.flush()'):6379 --object-manager-port 12345;
-            mkdir /root/.ssh/ &&
-            echo '<paste-pubKey-of-head-here>' >> ~/.ssh/authorized_keys;
+            mkdir /root/.ssh/;
+            touch /root/.ssh/authorized_keys;
+            sleep 3;
+            echo '<PASTE-PUBKEY-HERE-ONELINE>' >> ~/.ssh/authorized_keys;
             service ssh restart;
             sleep 3;
             service ssh restart;
-            echo This worker's IP: $MY_POD_IP
-            while true; do sleep 30; done;"
+            echo This worker IP $MY_POD_IP
+            && while true; do sleep 30; done;"
+
+      #no
