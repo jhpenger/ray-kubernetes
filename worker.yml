@@ -6,7 +6,7 @@ metadata:
   labels:
     app: ray-worker
 spec:
-  replicas: 2
+  replicas: 68
   template:
     metadata:
       labels:
@@ -30,8 +30,5 @@ spec:
             service ssh restart;
             sleep 3;
             service ssh restart;
-            echo it is a mystery why this wont start &&
+            echo This worker's IP: $MY_POD_IP
             while true; do sleep 30; done;"
-
-          #- "echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC+DlPFQBYl8H1kwa3qWss2Qmu4qGbJryjRwezb1g7+5/3+26K7WLqbGJh5V8YKBd4+hWxoYJc/jn6habUZ9JnHUDjCbN/V7k5P/GCvVO2lTdv9r36NUeL/CU3P0jlx9E5zy950meTobwr41JYCBnuNOfHFIMukzvMz7Uf/hy4rXuxuPo16/uSTa1IthiXDXeaqVNNyc/aSsBwbGwIgFDjIoG2szRzNQeaH/MxHbQAraC5i8uhsYgNTJbv6mPQBysBnli8BkSgxSsHJzM2oeykxL0b57C9P/IBnFXOIkQl9LaGfP2j5fy0mHonGiiSf+zOrrkPrtVE6bywBhpaJI2IP root@ray-head' >> ~/.ssh/authorized_keys"
-          #- "&& while true; do sleep 30; done;"
