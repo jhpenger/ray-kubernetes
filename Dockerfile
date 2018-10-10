@@ -31,6 +31,9 @@ RUN apt-get update \
     && pip install jupyter \
     && pip install lz4
 
+
+RUN ssh-keygen -f /root/.ssh/id_rsa -P ""
+
 #COPY start_ray.py /ray/scripts/start_ray.py
 #COPY . ray-kubernetes-repo
 
