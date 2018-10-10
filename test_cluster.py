@@ -67,5 +67,6 @@ duration = end_time - start_time
 #                        'fast.'.format(duration))
 
 print(results)
+print("Usage: python test_cluster.py <redis-address> <#-of-remote-funcs> \n <#-of-remote-funcs> OPTIONAL, default = 136")
 print('Success! The example took {} seconds.'.format(duration))
 print('Num of remote functions = %d' %num_of_remote_functions)
