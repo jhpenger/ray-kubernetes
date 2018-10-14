@@ -24,7 +24,7 @@ metadata:
 spec:
   containers:
   - name: ray-head
-    image: gcr.io/tutorial-218804/kube-cluster-demo
+    image: gcr.io/tutorial-218804/kube-cluster-demo:latest
     env:
     - name: MY_POD_IP
       valueFrom:
@@ -35,7 +35,8 @@ spec:
     - containerPort: 12345
     command: [ "/bin/bash", "-c", "--" ]
     args:
-      - "ray start --head --redis-port 6379 --object-manager-port 12345 --node-ip-address $MY_POD_IP &&
+      - "echo alias python=python3 >> ~/.bashrc; source ~/.bashrc;
+        ray start --head --redis-port 6379 --object-manager-port 12345 --node-ip-address $MY_POD_IP &&
         echo id_rsa.pub is -;
         more ~/.ssh/id_rsa.pub
         && while true; do sleep 30; done;"

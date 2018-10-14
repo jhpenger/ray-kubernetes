@@ -1,14 +1,22 @@
-FROM ubuntu:xenial
+FROM ubuntu:latest
+RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
+    && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
+ENV LANG en_US.utf8
+
+# disable interactive functions, suppress tzdata prompting for geographic location
+ENV DEBIAN_FRONTEND noninteractive
+
+# missing tzdata in 18.04 beta
+RUN apt-get update && \
+    apt-get install -y tzdata
+
 RUN apt-get update \
     && apt-get install -y vim git wget \
     && apt-get install -y cmake build-essential autoconf curl libtool libboost-all-dev unzip \
-    && apt-get install -y python-pip
-RUN pip install --upgrade pip
-RUN git clone https://github.com/robertnishihara/ray.git
+    && apt-get install -y python3-pip
+RUN pip3 install --upgrade pip
 RUN git clone https://github.com/jhpenger/ray-kubernetes.git
 RUN pip install numpy
-#RUN cd /ray \
- #   && git checkout storeport
 
 #install additional dependencies
 RUN apt-get update \
@@ -31,14 +39,11 @@ RUN apt-get update \
     && pip install jupyter \
     && pip install lz4
 
+RUN echo "alias python='python3'" >> ~/.bashrc \
+	&& source ~/.bashrc
 
 RUN ssh-keygen -f /root/.ssh/id_rsa -P "" \
     && echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
 
-#COPY start_ray.py /ray/scripts/start_ray.py
-#COPY . ray-kubernetes-repo
-
-RUN cd /ray \
-    && ./build.sh \
-    && cd python \
-    && pip install -e .
+#RUN echo "export LC_ALL='C.UTF-8'" >> ~/.bashrc \
+#   && echo "export LANG='C.UTF-8'" >> ~/.bashrc

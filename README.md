@@ -1,5 +1,5 @@
-# Running Ray Cluster on Kubernetes
-### Disclaimer:
+# Running Ray on Kubernetes Cluster
+### Acknowledgements:
 Many thanks to the instructions by Robert and Charles: found on [here](https://github.com/robertnishihara/ray-kubernetes/blob/instructions/README.md)
 ## Instructions
 **For most up-to-date set-up instructions:** [Medium Blog Post](https://medium.com/@apengjh/4634a51effc9)
@@ -53,19 +53,21 @@ First, get into your `ray-head` with `kubectl exec -it ray-head bash`. Then run:
 ```
 python /ray-kubernetes/test_cluster.py $MY_POD_IP:6379
 ```
-You can choose to define # of remote objects by passing in an additional parameter. (e.g. `python /ray-kubernetes/test_cluster.py $MY_POD_IP:6379 8888`). Default is set to 136.
+You can choose to define # of actors by passing in an additional parameter. (e.g. `python /ray-kubernetes/test_cluster.py $MY_POD_IP:6379 8888`). Default is set to 136. `#-of-actors` should be no more than `# of CPU cores` in your cluster (`not # of CPUs`)
 Your expected run-time should be ~`2.5` seconds, but might be slower due to reaching cluster's max CPU capacity.
 
-# Notes
-Instructions setup for Koç Lab @ University of California Santa Barbara.
+#### Things to Watch For
+If you import any local `modules`, make sure all pods have a copy of it. Or else you will get a `ImportError: No module named`. Use `parallel-scp` from you `ray-head`.
 
+# Notes
 We are trying to utilize Ray cluster to do reinforcement learning on [Gibson Enviroment](http://gibsonenv.stanford.edu/).
 
 Currently in the very early stages of exploring `ray` and `Gibson`. Would greately appreciate guidance from anyone with:
 * experience in running reinforcement earning simulations on large clusters using `GCloud` or `AWS`.
+* ray-project pods on GPU Kuberenetes cluster
 * using Google's `Preemptible VM Instances` with `ray` to cut down costs. Specifically in dealing with what to do when `pre-emptible instance` restarts.
 
-Contact [Sam](mailto:samgreen@gmail.com) and [Jun](mailto:peng00@cs.ucsb.edu)
+Contact [Sam](mailto:samgreen@gmail.com), [Jun](mailto:peng00@cs.ucsb.edu), or [Rodger](mailto:jieliang@ucsb.edu)
 Thanks,
 
 Contact me @ [peng00@cs.ucsb.edu](mailto:peng00@cs.ucsb.edu)

@@ -6,7 +6,7 @@ metadata:
   labels:
     app: ray-worker
 spec:
-  replicas: 67
+  replicas: 3
   template:
     metadata:
       labels:
@@ -24,7 +24,8 @@ spec:
               fieldPath: status.podIP
         command: [ "/bin/bash", "-c", "--" ]
         args:
-          - "ray start --node-ip-address $MY_POD_IP --redis-address $(python -c 'import socket;import sys; sys.stdout.write(socket.gethostbyname(\"ray-head.default.svc.cluster.local\"));sys.stdout.flush()'):6379 --object-manager-port 12345;
+          - "echo alias python=python3 >> ~/.bashrc; source ~/.bashrc;
+            ray start --node-ip-address $MY_POD_IP --redis-address $(python -c 'import socket;import sys; sys.stdout.write(socket.gethostbyname(\"ray-head.default.svc.cluster.local\"));sys.stdout.flush()'):6379 --object-manager-port 12345;
             mkdir /root/.ssh/;
             touch /root/.ssh/authorized_keys;
             sleep 3;
@@ -35,4 +36,4 @@ spec:
             echo This worker IP $MY_POD_IP
             && while true; do sleep 30; done;"
 
-      #no
+      #export LC_ALL=C.UTF-8; export LANG=C.UTF-8;
