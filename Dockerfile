@@ -39,8 +39,7 @@ RUN apt-get update \
     && pip install jupyter \
     && pip install lz4
 
-RUN echo "alias python='python3'" >> ~/.bashrc \
-	&& source ~/.bashrc
+RUN echo "alias python='python3'" >> ~/.bashrc
 
 RUN ssh-keygen -f /root/.ssh/id_rsa -P "" \
     && echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
